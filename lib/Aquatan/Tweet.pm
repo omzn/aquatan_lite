@@ -2,7 +2,6 @@ package Aquatan::Tweet;
 use utf8;
 use Moose;
 use Encode;
-use List::Util qw(shuffle);
 use Data::Dumper;
 use Time::Piece;
 
