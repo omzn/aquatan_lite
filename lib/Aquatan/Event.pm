@@ -7,7 +7,7 @@ use Moose;
 extends 'Aquatan::Config';
 
 use AnyEvent;
-use AnyEvent::Twitter;
+#use AnyEvent::Twitter;
 use AnyEvent::Twitter::Stream;
 use Data::Dumper;
 use Net::Twitter;
