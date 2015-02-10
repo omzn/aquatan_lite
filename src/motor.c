@@ -11,9 +11,9 @@
 #define DEBUG 1
 
 /* pin 11 */
-#define TOUCH_SENSOR 1
+#define TOUCH_SENSOR 0
 /* pin 12 */
-#define LIGHT_SENSOR 0
+#define LIGHT_SENSOR 1
 
 volatile static int h_pos;
 volatile static int h_stop;
@@ -129,8 +129,8 @@ int main(int argc,char *argv[]) {
         - the touch sensor gives High when touched
       that's why triggers varies.
      */
-    wiringPiISR(TOUCH_SENSOR, INT_EDGE_FALLING,  &onHTouch);
-    wiringPiISR(LIGHT_SENSOR, INT_EDGE_RISING, &onHLight);
+    wiringPiISR(TOUCH_SENSOR, INT_EDGE_RISING,  &onHTouch);
+    wiringPiISR(LIGHT_SENSOR, INT_EDGE_FALLING, &onHLight);
 
     /* clear fault regisiter */
     wiringPiI2CWriteReg8(move_d,0x01,0x00);
