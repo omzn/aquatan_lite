@@ -11,9 +11,9 @@
 #define DEBUG 1
 
 /* pin 11 */
-#define TOUCH_SENSOR 0
+#define TOUCH_SENSOR 1
 /* pin 12 */
-#define LIGHT_SENSOR 1
+#define LIGHT_SENSOR 0
 
 volatile static int h_pos;
 volatile static int h_stop;
@@ -64,7 +64,7 @@ int main(int argc,char *argv[]) {
   int result;
 
   /* get opt */
-  while((result=getopt(argc,argv,"a:r:l:u:d:s")) != -1) {
+  while((result=getopt(argc,argv,"a:r:l:s")) != -1) {
     switch(result){
     case 'a': // Accel
       accel = (uint8_t)strtol(optarg,NULL,0);
@@ -109,7 +109,7 @@ int main(int argc,char *argv[]) {
 
   move_d = wiringPiI2CSetup(DRV8830_SLAVE_1) ;
   if (move_d < 0) {
-    fprintf(stderr,"Cannot open DRV8830_SLAVE_2\n");
+    fprintf(stderr,"Cannot open DRV8830_SLAVE_1\n");
     return -1;
   }
   if (stop == 1) {
@@ -129,8 +129,8 @@ int main(int argc,char *argv[]) {
         - the touch sensor gives High when touched
       that's why triggers varies.
      */
-    wiringPiISR(LIGHT_SENSOR, INT_EDGE_FALLING, &onHLight);
     wiringPiISR(TOUCH_SENSOR, INT_EDGE_RISING,  &onHTouch);
+    wiringPiISR(LIGHT_SENSOR, INT_EDGE_FALLING, &onHLight);
 
     /* clear fault regisiter */
     wiringPiI2CWriteReg8(move_d,0x01,0x00);
