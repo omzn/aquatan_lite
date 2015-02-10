@@ -79,11 +79,12 @@ sub got_tweet {
     } elsif ($tweet->{text} =~/撮影|写真|映像/) {
 	$opcmd = "ph";
     }
-
+    lpf("Command: %s",$opcmd);
+    
     ### 写真撮影 ###
     # 条件
     if ($opcmd eq "ph") {	    
-	$reply->text("ライブ画像を伝送します。");
+	$reply->text("ライブ画像を送信します。");
 	$reply->tms('jtime');
 	$reply->media_type('camera');
 	$self->do_tweet($reply);
