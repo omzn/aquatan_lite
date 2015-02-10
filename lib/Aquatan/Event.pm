@@ -62,6 +62,12 @@ sub got_tweet {
     my $m_id = $tweet->{id};
     my $sname = $tweet->{user}->{screen_name};
 
+    if ($txt =~/^\@([\w\d_]+)\s/) {
+	return if ($1 ne $USERNAME);
+    } else {
+	return;
+    }
+    
     my $t = localtime;
 
     my $reply = Aquatan::Tweet->new(
