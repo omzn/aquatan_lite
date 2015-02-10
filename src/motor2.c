@@ -11,9 +11,9 @@
 #define DEBUG 1
 
 /* pin 11 */
-#define TOUCH_SENSOR 1
+#define TOUCH_SENSOR 0
 /* pin 12 */
-#define LIGHT_SENSOR 0
+#define LIGHT_SENSOR 1
 
 volatile static int h_pos;
 volatile static int h_stop;
