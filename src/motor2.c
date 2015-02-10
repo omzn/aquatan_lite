@@ -114,7 +114,7 @@ int main(int argc,char *argv[]) {
   while(h_stop < 2 ) {
     uint8_t t = digitalRead(TOUCH_SENSOR);
     uint8_t l = digitalRead(LIGHT_SENSOR);
-    uint8_t prev_l;
+    static uint8_t prev_l = 0;
 
     if (t == 1) {
       h_stop = 1;
