@@ -64,13 +64,6 @@ sub got_tweet {
 
     my $t = localtime;
 
-    if ($tweet->{text}=~/^RT /) {
-	return if ($tweet->{user}->{screen_name} eq $USERNAME);
-	lpf("RT -> store only");
-	my $tw = Aquatan::TweetDB->new(tweet=>$tweet);
-	return;
-    }
-
     my $reply = Aquatan::Tweet->new(
 	reply_to  => $sname,
 	in_reply_to_status_id => $m_id
