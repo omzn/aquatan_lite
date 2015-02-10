@@ -7,7 +7,7 @@ LIBS	=	-lwiringPi
 
 all:		$(OBJ)
 motor:	motor.c
-		@echo [make move_cam]
+		@echo [make motor]
 		@$(CC) -o motor motor.c $(LIBS)
 
 clean:
