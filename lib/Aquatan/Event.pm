@@ -238,15 +238,16 @@ sub move_h {
 
 sub do_tweet {
     my ($self,$tw) = @_;
+    my $content = $tw->tweet;
     {
 	no utf8;
 	eval {
 	    my $res;
-	    if (defined($tw) && %$tw) {
-		if (exists($tw->{media})) {
-		    $res = $self->nt->update_with_media( $tw );
+	    if (defined($content) && %$content) {
+		if (exists($content->{media})) {
+		    $res = $self->nt->update_with_media( $content );
 		} else {
-		    $res = $self->nt->update( $tw );
+		    $res = $self->nt->update( $content );
 		}
 		lpf("Tweeted.");
 	    }
