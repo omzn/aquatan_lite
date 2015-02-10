@@ -6,13 +6,14 @@
 #include <wiringPiI2C.h>
 
 #define DRV8830_SLAVE_1 0x64
-
 #define LEFT_DIR 1
 
+#define DEBUG 1
+
 /* pin 11 */
-#define TOUCH1_SENSOR 0
+#define TOUCH_SENSOR 0
 /* pin 12 */
-#define LIGHT1_SENSOR 1
+#define LIGHT_SENSOR 1
 
 volatile static int h_pos;
 volatile static int h_stop;
@@ -39,7 +40,7 @@ void doNothing(void) {
 }
 
 void onHTouch(void) {
-  wiringPiISR(TOUCH1_SENSOR, INT_EDGE_RISING,  &doNothing);
+  wiringPiISR(TOUCH_SENSOR, INT_EDGE_RISING,  &doNothing);
 #ifdef DEBUG
   fprintf(stderr,"INT H_Touch!\n");
 #endif
@@ -56,7 +57,7 @@ void onHLight(void) {
 
 /* main */
 int main(int argc,char *argv[]) {
-  uint8_t accel  = 0x3f;
+  uint8_t accel  = 0x25;
   int h_direction  = 0;
   int v_direction  = 0;
   int stop       = 0;
@@ -71,8 +72,8 @@ int main(int argc,char *argv[]) {
       fprintf(stderr,"%c %x\n",result,accel);
 #endif
 
-      if (accel > 0x3f || accel < 0x06) {
-	fprintf(stderr,"Invalid range of accel: 0x06 - 0x3f\n");
+      if (accel > 0x29 || accel < 0x06) {
+	fprintf(stderr,"Invalid range of accel: 0x06 - 0x29\n");
 	return -1;
       }
 
@@ -128,8 +129,8 @@ int main(int argc,char *argv[]) {
         - the touch sensor gives High when touched
       that's why triggers varies.
      */
-    wiringPiISR(LIGHT1_SENSOR, INT_EDGE_FALLING, &onHLight);
-    wiringPiISR(TOUCH1_SENSOR, INT_EDGE_RISING,  &onHTouch);
+    wiringPiISR(LIGHT_SENSOR, INT_EDGE_FALLING, &onHLight);
+    wiringPiISR(TOUCH_SENSOR, INT_EDGE_RISING,  &onHTouch);
 
     /* clear fault regisiter */
     wiringPiI2CWriteReg8(move_d,0x01,0x00);
