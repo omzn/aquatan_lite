@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DEV_CAM=/dev/video0
+RESOLUTION=640x480
+PORT=8080
+
+killall mjpg_streamer
+/usr/local/bin/mjpg_streamer -b -i "/usr/local/lib/input_uvc.so -d $DEV_CAM -r $RESOLUTION -f 10 -y -q 70" -o "/usr/local/lib/output_http.so -p $PORT -w /usr/local/www"

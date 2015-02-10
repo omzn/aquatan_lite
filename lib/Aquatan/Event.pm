@@ -28,7 +28,7 @@ sub BUILD {
 	traits   => [qw/API::RESTv1_1 OAuth/],
 	consumer_key    => $self->p('consumer_key'),
 	consumer_secret => $self->p('consumer_secret'),
-	access_token    => $self->p('access_token_key'),
+	access_token    => $self->p('access_token'),
 	access_token_secret => $self->p('access_token_secret'),
 	ssl => 1
 	);
@@ -130,7 +130,7 @@ sub eventloop {
 	$listener_twitter = AnyEvent::Twitter::Stream->new(
 	    consumer_key    => $self->p('consumer_key'),
 	    consumer_secret => $self->p('consumer_secret'),
-	    token    => $self->p('access_token_key'),
+	    token    => $self->p('access_token'),
 	    token_secret => $self->p('access_token_secret'),
 	    method => 'userstream',
 	    

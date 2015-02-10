@@ -26,19 +26,21 @@ $ setup.sh
 
 ppitでツイッターのアクセス情報を設定する
 ```
+$ export EDITOR=vi
 $ ppit set aqua
-
-comsumer_key: "自身のcomsumer_key"
-comsumer_secret: "自身のcomsumer_secret"
-access_token_key: "自身のaccess_token_key"
-access_token_secret: "自身のaccess_token_secret"
+--- {
+comsumer_key: 自身のcomsumer_key,
+comsumer_secret: 自身のcomsumer_secret,
+access_token: 自身のaccess_token,
+access_token_secret: 自身のaccess_token_secret
+}
 ```
 
 実行
 ------
 bin 下で，次のプログラムを実行
 ```
-$ ./bot_aquatan_lite.pl &
+$ ./bot_aquatan_lite.pl
 ```
 
 ツイッターから，botに向けてmentionを送る．
