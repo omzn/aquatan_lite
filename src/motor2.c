@@ -102,16 +102,6 @@ int main(int argc,char *argv[]) {
   h_stop = h_pos == 0 ? 2 : 0;
 
   if (h_direction != 0) {
-    /* set interrupt for sensors */
-    /*
-      in my implementation, 
-        - the light sensor gives Low when sensored
-        - the touch sensor gives High when touched
-      that's why triggers varies.
-     */
-    //    wiringPiISR(TOUCH_SENSOR, INT_EDGE_FALLING,  &onHTouch);
-    //wiringPiISR(LIGHT_SENSOR, INT_EDGE_RISING, &onHLight);
-
     /* clear fault regisiter */
     wiringPiI2CWriteReg8(move_d,0x01,0x00);
     /* break */
@@ -122,14 +112,15 @@ int main(int argc,char *argv[]) {
 
   // loop 
   while(h_stop < 2 ) {
-    int t = digitalRead(0);
-    int l = digitalRead(1);
+    uint8_t t = digitalRead(TOUCH_SENSOR);
+    uint8_t l = digitalRead(LIGHT_SENSOR);
+    uint8_t prev_l;
 
     if (t == 1) {
       h_stop = 1;
     }
 
-    if (l == 0) {
+    if (l == 0 && prev_l == 1) {
       h_pos--;
     }
     
@@ -147,6 +138,7 @@ int main(int argc,char *argv[]) {
       stopMotor(move_d);
       h_stop = 2;
     }
+    prev_l = l;
     delay(10);
   } 
   
